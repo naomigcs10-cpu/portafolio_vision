@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lenguaje Natural con Python</title>
+    <title>Visión Artificial con Python</title>
     <style>
         * {
             margin: 0;
@@ -12,10 +12,9 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f5f5;
-            color: #ADB3AD
-;
+            color: #333;
             line-height: 1.6;
         }
 
@@ -25,27 +24,38 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 2rem;
-            background: linear-gradient(135deg, #ADB3AD 0%, #764ba2 100%);
-            color: green;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2rem, 5vw, 4rem);
             font-weight: 300;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
         }
 
-        .hero .author {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            opacity: 0.9;
-            font-weight: 300;
+        .hero-info {
+            max-width: 600px;
+            margin-top: 1rem;
         }
 
-        .author strong {
+        .hero-info p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            margin: 0.5rem 0;
+        }
+
+        .hero-info .name {
             font-weight: 500;
+            margin-top: 1.5rem;
+        }
+
+        .hero-info .institution {
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            opacity: 0.9;
         }
 
         .catalog {
@@ -56,16 +66,15 @@
 
         .catalog h2 {
             text-align: center;
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-size: 2rem;
             font-weight: 300;
             margin-bottom: 3rem;
-            color: #244525
-;
+            color: #667eea;
         }
 
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
 
@@ -73,13 +82,14 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
 
         .card-image {
@@ -89,65 +99,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: red;
+            position: relative;
         }
 
-        .card:nth-child(2) .card-image {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .card:nth-child(3) .card-image {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .card:nth-child(4) .card-image {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-        }
-
-        .card:nth-child(5) .card-image {
-            background: linear-gradient(135deg, #27F52A 0%, #fee140 100%);
-        }
-
-        .card:nth-child(6) .card-image {
-            background: linear-gradient(135deg, #27F52A 0%, #330867 100%);
-        }
-
-        .card:nth-child(7) .card-image {
-            background: linear-gradient(135deg, #27F52A 0%, #fed6e3 100%);
+        .card-image svg {
+            width: 80px;
+            height: 80px;
+            fill: white;
+            opacity: 0.9;
         }
 
         .card-content {
             padding: 1.5rem;
         }
 
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: #27F52A;
+        .card-content h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
             margin-bottom: 0.5rem;
+            color: #333;
         }
 
-        .card-description {
+        .card-content p {
             font-size: 0.95rem;
-            color: #244525
-;
-            line-height: 1.5;
+            color: #666;
+            font-weight: 300;
         }
 
         @media (max-width: 768px) {
             .catalog {
-                padding: 3rem 1.5rem;
-            }
-
-            .cards-grid {
-                gap: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 1.5rem;
+                padding: 3rem 1rem;
             }
 
             .cards-grid {
@@ -158,90 +139,84 @@
 </head>
 <body>
     <section class="hero">
-        <h1>Lenguaje Natural con Python</h1>
-        <p class="author">Realizado por: <strong>NAOMI GETSEMANI CRUZ SALASAR</strong></p>
+        <h1>Visión Artificial con Python</h1>
+        <div class="hero-info">
+            <p class="name">Trabajo realizado por:</p>
+            <p class="name">Joel Alexander Cruz Martinez (tecatito)   </p>
+            <p class="institution">Especialidad de Inteligencia Artificial</p>
+            <p class="institution">CBTIS 144</p>
+        </div>
     </section>
 
     <section class="catalog">
-        <h2>Catálogo de Temas</h2>
+        <h2>Catálogo de Proyectos</h2>
         <div class="cards-grid">
             <div class="card">
-                <div class="card-image">🔄</div>
+
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                    </svg>
+                </div>
                 <div class="card-content">
-                    <h3 class="card-title">For</h3>
-                    <p class="card-description">Estructuras de iteración para recorrer y procesar texto de manera eficiente.</p>
-                    <a href="For.html">link de prueba</a>
+                    <h3>Abrir Imagen con Python</h3>
+                    <p>Aprende a cargar y visualizar imágenes utilizando bibliotecas de Python</p>
+                    <a href="abrir imagen.html">link de prueba</a>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-image">📊</div>
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/>
+                    </svg>
+                </div>
                 <div class="card-content">
-                    <h3 class="card-title">Frecuencia</h3>
-                    <p class="card-description">Análisis de frecuencia de palabras y términos en corpus de texto.</p>
-                    <a href="Frecuencia.html">link de prueba</a>
+                    <h3>Escala de Grises</h3>
+                    <p>Conversión de imágenes a color en imágenes de escala de grises</p>
+                    <a href="escala de grises.html">link de prueba</a>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-image">👋</div>
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    </svg>
+                </div>
                 <div class="card-content">
-                    <h3 class="card-title">Hola Mundo</h3>
-                    <p class="card-description">Introducción básica al procesamiento de lenguaje natural con Python.</p>
-                    <a href="Hola Mundo.html">link de prueba</a>
+                    <h3>Información de Imagen</h3>
+                    <p>Extracción de metadatos y propiedades de imágenes digitales</p>
+                    <a href="informacion imagen.html">link de prueba</a>
                 </div>
             </div>
 
             <div class="card">
-                <div class="card-image">📝</div>
-                <div class="card-content">
-                    <h3 class="card-title">Listas</h3>
-                    <p class="card-description">Manipulación y gestión de colecciones de datos textuales.</p>
-                    <a href="Listas.html">link de prueba</a>
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z"/>
+                    </svg>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">📏</div>
                 <div class="card-content">
-                    <h3 class="card-title">Longitud</h3>
-                    <p class="card-description">Medición y análisis de la extensión de textos y documentos.</p>
-                    <a href="Longitud.html">link de prueba</a>
+                    <h3>Ajustar Tamaño</h3>
+                    <p>Redimensionamiento y escalado de imágenes con diferentes técnicas</p>
+                    <a href="ajustar tamaño.html">link de prueba</a>
                 </div>
-            </div>
-
-            <div class="card">
-                <div class="card-image">💭</div>
-                <div class="card-content">
-                    <h3 class="card-title">Sentimientos</h3>
-                    <p class="card-description">Análisis de sentimientos y emociones en textos y opiniones.</p>
-                    <a href="Sentimientos.html">link de prueba</a>
-                </div>
-            </div>
-
-            <div class="card">
+                <div class="card">
                 <div class="card-image">🔤</div>
                 <div class="card-content">
-                    <h3 class="card-title">Tokens</h3>
-                    <p class="card-description">Tokenización y segmentación de texto en unidades procesables.</p>
-                     <a href="tokens.html">link de prueba</a>
+                    <h3 class="card-title">recorte</h3>
+                    <p class="card-description"></p>
+                     <a href="recort.html">link de prueba</a>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-image">📊</div>
-                <div class="card-content">
-                    <h3 class="card-title">pre prosesamiento</h3>
-                    <p class="card-description">Análisis de frecuencia de palabras y términos en corpus de texto.</p>
-                    <a href="pre.html">link de prueba</a>
-                </div>
-            </div>
                 <div class="card">
-                <div class="card-image">📊</div>
+                <div class="card-image">🔤</div>
                 <div class="card-content">
-                    <h3 class="card-title">traductor</h3>
-                    <p class="card-description">Análisis de frecuencia de palabras y términos en corpus de texto.</p>
-                    <a href="tra.html">link de prueba</a>
+                    <h3 class="card-title">movimiento</h3>
+                    <p class="card-description"></p>
+                     <a href="movimiento.html">link de prueba</a>
                 </div>
+            </div>
             </div>
         </div>
     </section>
