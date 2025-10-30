@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visión Artificial con Python</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-info {
+            max-width: 600px;
+            margin-top: 1rem;
+        }
+
+        .hero-info p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 300;
+            margin: 0.5rem 0;
+        }
+
+        .hero-info .name {
+            font-weight: 500;
+            margin-top: 1.5rem;
+        }
+
+        .hero-info .institution {
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            opacity: 0.9;
+        }
+
+        .catalog {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .catalog h2 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-image svg {
+            width: 80px;
+            height: 80px;
+            fill: white;
+            opacity: 0.9;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .catalog {
+                padding: 3rem 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>Visión Artificial con Python</h1>
+        <div class="hero-info">
+            <p class="name">Trabajo realizado por:</p>
+            <p class="name">Joel Alexander Cruz Martinez (tecatito)   </p>
+            <p class="institution">Especialidad de Inteligencia Artificial</p>
+            <p class="institution">CBTIS 144</p>
+        </div>
+    </section>
+
+    <section class="catalog">
+        <h2>Catálogo de Proyectos</h2>
+        <div class="cards-grid">
+            <div class="card">
+
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3>Abrir Imagen con Python</h3>
+                    <p>Aprende a cargar y visualizar imágenes utilizando bibliotecas de Python</p>
+                    <a href="abrir imagen.html">link de prueba</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3>Escala de Grises</h3>
+                    <p>Conversión de imágenes a color en imágenes de escala de grises</p>
+                    <a href="escala de grises.html">link de prueba</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3>Información de Imagen</h3>
+                    <p>Extracción de metadatos y propiedades de imágenes digitales</p>
+                    <a href="informacion imagen.html">link de prueba</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z"/>
+                    </svg>
+                </div>
+                <div class="card-content">
+                    <h3>Ajustar Tamaño</h3>
+                    <p>Redimensionamiento y escalado de imágenes con diferentes técnicas</p>
+                    <a href="ajustar tamaño.html">link de prueba</a>
+                </div>
+                <div class="card">
+                <div class="card-image">🔤</div>
+                <div class="card-content">
+                    <h3 class="card-title">recorte</h3>
+                    <p class="card-description"></p>
+                     <a href="recort.html">link de prueba</a>
+                </div>
+                <div class="card">
+                <div class="card-image">🔤</div>
+                <div class="card-content">
+                    <h3 class="card-title">movimiento</h3>
+                    <p class="card-description"></p>
+                     <a href="movimiento.html">link de prueba</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
