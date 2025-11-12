@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenguaje Natural con Python</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .author {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-weight: 300;
+            margin-top: 2rem;
+            opacity: 0.95;
+        }
+
+        .catalog {
+            background: #f5f5f5;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+        }
+
+        .catalog-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .btn-ver-codigo {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn-ver-codigo:hover {
+            background: #764ba2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 2% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: #2d2d2d;
+            color: white;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>Lenguaje Natural con Python</h1>
+        <p>Portafolio de Proyectos de IA y Glosario</p>
+        <p class="author">Realizado por: Crys & Nahomi</p>
+    </section>
+
+    <section class="catalog">
+        <h2 class="catalog-title">Catálogo de Prácticas</h2>
+        <div class="cards-container">
+            <div class="card" onclick="openModal(1)">
+                <div class="card-image">🌍</div>
+                <div class="card-content">
+                    <h3 class="card-title">1. Traductor Multiidioma</h3>
+                    <p class="card-description">Traducción automática de texto a múltiples idiomas usando Google Translator</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(2)">
+                <div class="card-image">🔤</div>
+                <div class="card-content">
+                    <h3 class="card-title">2. Tokenización de Texto</h3>
+                    <p class="card-description">Limpieza y tokenización de texto por palabras y oraciones con NLTK</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(3)">
+                <div class="card-image">😊</div>
+                <div class="card-content">
+                    <h3 class="card-title">3. Análisis de Sentimientos</h3>
+                    <p class="card-description">Clasificación de sentimientos positivos y negativos en frases</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(4)">
+                <div class="card-image">📊</div>
+                <div class="card-content">
+                    <h3 class="card-title">4. Contador de Letras</h3>
+                    <p class="card-description">Análisis de palabras únicas y conteo de letras en texto</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(5)">
+                <div class="card-image">📝</div>
+                <div class="card-content">
+                    <h3 class="card-title">5. Listas y Diccionarios</h3>
+                    <p class="card-description">Manejo de estructuras de datos fundamentales en Python</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(6)">
+                <div class="card-image">🔢</div>
+                <div class="card-content">
+                    <h3 class="card-title">6. Frecuencia de Palabras</h3>
+                    <p class="card-description">Contador de frecuencia de palabras usando diccionarios</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(7)">
+                <div class="card-image">🔁</div>
+                <div class="card-content">
+                    <h3 class="card-title">7. Bucles For</h3>
+                    <p class="card-description">Ejemplos de iteración con bucles for en Python</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(8)">
+                <div class="card-image">🤖</div>
+                <div class="card-content">
+                    <h3 class="card-title">8. Chatbot Básico</h3>
+                    <p class="card-description">Chatbot conversacional con respuestas aleatorias</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="openModal(9)">
+                <div class="card-image">💬</div>
+                <div class="card-content">
+                    <h3 class="card-title">9. Sentibot</h3>
+                    <p class="card-description">Chatbot de análisis de sentimientos con respuestas empáticas</p>
+                    <a href="#" class="btn-ver-codigo">Ver Código</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Código</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <pre><code id="modal-code"></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const codes = {
+            1: `from deep_translator import GoogleTranslator
+
+# Texto original en español
+texto_original = "Hola, este es un ejercicio para traducir texto a varios idiomas."
+
+# Traducción a inglés
+texto_ingles = GoogleTranslator(source='auto', target='en').translate(texto_original)
+
+# Traducción a portugués
+texto_portugues = GoogleTranslator(source='auto', target='pt').translate(texto_original)
+
+# Resultados
+print("Texto original (Español):", texto_original)
+print("Traducción al Inglés:", texto_ingles)
+print("Traducción al Portugués:", texto_portugues)`,
+
+            2: `import re
+import nltk
+
+# Descarga de modelo de tokenización
+nltk.download('punkt_tab')
+
+# Importamos las funciones de la librería
+from nltk.tokenize import word_tokenize, sent_tokenize
+
+# Ejemplo de texto a tokenizar
+texto = ("En la materia de lenguaje natural PLN y visión artificial VA, se desarrolla "
+         "un portafolio de prácticas como material de apoyo para los siguientes "
+         "semestres de la especialidad, incluyendo prácticas y glosario de funciones "
+         "por cada práctica")
+
+texto_limpio = texto.lower()
+
+# Quitar saltos de línea y espacios
+texto_limpio = texto_limpio.strip()
+
+# Elimina caracteres que no sean letras
+texto_limpio = re.sub(r'[^\\w\\s]', '', texto_limpio)
+
+# TOKENIZAR
+# Token por palabra
+palabra = word_tokenize(texto_limpio, language='spanish')
+print("Token en palabra", palabra)
+
+# Token por oración
+oraciones = sent_tokenize(texto)
+print("Token en oraciones", oraciones)
+
+print(texto)
+print(texto_limpio)`,
+
+            3: `# Listas de palabras positivas y negativas
+palabraspositivas = ['feliz', 'contento', 'alegre', 'maravilloso', 'bonito', 'bonita']
+palabrasnegativas = ['triste', 'solo', 'aburrido', 'malo', 'deprimido', 'horrible', 'muerte']
+
+frase = "feliz, triste, triste"
+
+tokens = frase.replace(",", "").lower().split()
+
+contador_positiva = 0
+contador_negativo = 0
+
+for palabra in tokens:
+    if palabra in palabraspositivas:
+        contador_positiva += 1
+    elif palabra in palabrasnegativas:
+        contador_negativo += 1
+
+if contador_positiva > contador_negativo:
+    sentimiento = "La frase es positiva"
+elif contador_negativo > contador_positiva:
+    sentimiento = "La frase es negativa"
+
+print("Tokens:", tokens)
+print("Palabras positivas:", contador_positiva)
+print("Palabras negativas:", contador_negativo)
+print(sentimiento)`,
+
+            4: `frase = "python es divertido y poderoso mas poderoso que javascript"
+tokens = frase.replace(".", ".").replace(".", ".").replace(".", ".").lower().split()
+
+# Crear una lista vacía verificación
+verificacion = []
+for palabra in tokens:
+    if palabra not in verificacion:
+        print(palabra, "tiene", len(palabra), "letras")
+        verificacion.append(palabra)`,
+
+            5: `# Review class on lists and dictionaries for natural language
+
+# Declaring an empty list
+students = []  # empty list
+
+# List of integers
+integers = [1, 5, 10, 15, 20]
+
+# Lists of floating-point numbers
+ratings = [5.5, 8.8, 8.5]
+
+# List of text strings
+subjects = ["natural language", "artificial vision", "machine learning"]
+
+# Mixed lists
+personal_data = ["angel gutierrez", 15, 1.70, 78, "tuxtla"]
+
+# Printing lists
+print("list of integers", integers)
+print("calificaciones", ratings)
+print("materias", subjects)
+print("personal_data", personal_data)
+
+"""
+Functions for lists: add, edit, delete
+"""
+
+movies = ["spiderman", "snoopy", "scarface", "gt max", "spider in the Spider-Verse"]
+
+# Printing original list
+print(movies)
+
+# Adding items to the list with .append()
+movies.append("venom")
+print("updated list", movies)
+
+# Request the new element using input
+new_movie = input("add a new movie: ")
+movies.append(new_movie)
+
+# Delete or remove an item from the list
+delete = input("which one do you want to delete: ")
+movies.remove(delete)
+print("updated list", movies)
+
+# Edit list item
+pos = int(input("adds a position from the list: "))
+pos = pos - 1
+movies[pos] = input("add the movie name: ")
+print("updated list", movies)`,
+
+            6: `# Frase de ejemplo
+frase = "python es divertido y python es poderoso"
+
+# 1. Limpiar el texto (minúsculas y sin puntuación básica)
+frase_limpia = frase.replace("", "").replace(" ", "-").lower()
+
+# 2. Dividir en palabras (tokenización)
+tokens = frase_limpia.split()
+
+# 3. Contar palabras usando un diccionario
+frecuencia = {}
+for palabra in tokens:
+    if palabra in frecuencia:
+        frecuencia[palabra] += 1
+    else:
+        frecuencia[palabra] = 1
+
+# 4. Mostrar resultados
+print(frecuencia)`,
+
+            7: `numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+for num in numeros:
+    print(num)
+
+#######################################################
+
+frutas = ["manzana", "banana", "cereza"]
+for fruta in frutas:
+    print("me gusta la", fruta)
+
+#######################################################
+
+for i in range(5):
+    print("numero:", i)
+
+########################################################
+
+palabra = "python"
+for letra in palabra:
+    print(letra)`,
+
+            8: `# Example of a basic chatbot with lists
+import random
+
+# List of greetings and replies
+greetings = ["hello", "how are you", "good morning", "good afternoon", "good day"]
+answers = ["hello, how are you?", "How can I help you?", "Hi, how are you?", "What's up?"]
+
+farewell = ["goodbye", "bye", "thank you", "see you", "see you later", "leave"]
+farewell_response = [
+    "Goodbye, see you soon",
+    "It was a pleasure to help you.",
+    "take care of yourself",
+    "See you later",
+    "bye",
+    "I'll be back later, I'm going to rule the world."
+]
+
+question = ["what are you doing", "how are you", "Tell me something"]
+resputa_pregunta = [
+    "waiting for your question",
+    "I am dominating the world",
+    "what do you want to know?"
+]
+
+# Chatbot welcome message
+print("Hi, I'm Chato, your trusted chatbot, if you wish to terminate write exit")
+
+while True:
+    user = input("Your: ").lower().strip()
+    
+    if user in greetings:
+        print("chatbot:", random.choice(answers))
+    elif user in question:
+        print("chatbot:", random.choice(resputa_pregunta))
+    elif user in farewell:
+        print("chatbot:", random.choice(farewell_response))
+        break`,
+
+            9: `import random
+
+# Diccionario de sentimientos y respuestas
+sentimientos = {
+    "feliz": [
+        "¡Qué bien que te sientas feliz!",
+        "Me alegra saber que estás contento.",
+        "¡La felicidad es contagiosa!",
+    ],
+    "triste": [
+        "Lo siento mucho. ¿Hay algo que pueda hacer para ayudarte?",
+        "Entiendo cómo te sientes. No estás solo.",
+        "A veces, estar triste es necesario. Recuerda que pasará.",
+    ],
+    "enojado": [
+        "Tranquilo, respira hondo. ¿Qué te ha molestado?",
+        "Comprendo tu enojo. Intenta hablar sobre ello.",
+        "Es normal sentirse enojado a veces. No te juzgues por eso.",
+    ],
+    "sorprendido": [
+        "¡Wow, qué sorpresa!",
+        "¿En serio? ¡Cuéntame más!",
+        "¡Qué interesante!",
+    ],
+    "asustado": [
+        "No te preocupes, estoy aquí contigo.",
+        "¿Qué te asusta? Podemos enfrentarlo juntos.",
+        "Es comprensible tener miedo. Intenta relajarte.",
+    ],
+    "cansado": [
+        "Deberías descansar un poco.",
+        "¿Necesitas un respiro? Tómate tu tiempo.",
+        "El descanso es importante. No te exijas demasiado.",
+    ],
+    "emocionado": [
+        "¡Qué genial! ¿Qué te tiene tan emocionado?",
+        "Me encanta tu entusiasmo.",
+        "¡Disfruta de esa emoción!",
+    ],
+    "nervioso": [
+        "Respira profundamente y trata de relajarte.",
+        "Es normal estar nervioso. Todo saldrá bien.",
+        "¿Qué te pone nervioso? Podemos hablar de ello.",
+    ],
+}
+
+# Función para procesar la entrada del usuario y responder
+def responder(usuario):
+    usuario = usuario.lower().strip()
+    for sentimiento, respuestas in sentimientos.items():
+        if sentimiento in usuario:
+            return random.choice(respuestas)
+    return "No estoy seguro de cómo responder a eso. ¿Puedes contarme más?"
+
+# Mensaje de bienvenida
+print("Hola, soy Sentibot. ¡Cuéntame cómo te sientes y te daré una respuesta!")
+
+# Bucle principal
+while True:
+    usuario = input("Tú: ")
+    if usuario.lower() == "salir":
+        print("Sentibot: ¡Adiós! Espero haberte ayudado.")
+        break
+    respuesta = responder(usuario)
+    print("Sentibot:", respuesta)`
+        };
+
+        const titles = {
+            1: "Traductor Multiidioma",
+            2: "Tokenización de Texto",
+            3: "Análisis de Sentimientos",
+            4: "Contador de Letras",
+            5: "Listas y Diccionarios",
+            6: "Frecuencia de Palabras",
+            7: "Bucles For",
+            8: "Chatbot Básico",
+            9: "Sentibot"
+        };
+
+        function openModal(id) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalCode = document.getElementById('modal-code');
+            
+            modalTitle.textContent = titles[id];
+            modalCode.textContent = codes[id];
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
